@@ -1,0 +1,10 @@
+FROM node:10
+
+WORKDIR /home/node/app
+RUN chown -R node:node /home/node/app
+USER node
+COPY package.json /home/node/app
+RUN npm install
+COPY index.js /home/node/app/index.js
+EXPOSE 3000
+CMD ["npm", "run", "start"]
