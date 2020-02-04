@@ -5,6 +5,7 @@ jobs:
       - image: circleci/buildpack-deps:latest
     steps:
       - checkout
+      - setup_remote_docker
       - run:
           name: build-docker-image
           command: docker build -f DockerFile -t myapi .
