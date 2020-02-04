@@ -1,25 +1,18 @@
 version: 2.1
 jobs:
   build:
-    working_directory: ~/projet
     docker:
-      - image: circleci/node:12
+      - image: circleci/buildpack-deps:latest
     steps:
-      - checkout # special step to check out source code to working directory
+      - checkout
       - run:
-          name: install-npm-wee
-          command: |
-            npm install
-            echo 'Leo le dozo'
-      - save_cache: # special step to save the dependency cache
-          key: v1-dependencies-{{ checksum "package-lock.json" }}
-          paths:
-            - ./node_modules
-#workflows:
-#  version: 2.1
-#  build_and_test:
-#    jobs:
-#      - build
+          name: build-docker-image
+          command: docker build -f DockerFile -t myApi .
+workflows:
+  version: 2.1
+  dev-workflow:
+    jobs:
+      - build
 #      - test
 #    - run: # run tests
 #          name: test
