@@ -26,7 +26,9 @@ jobs:
           command: docker login -u ${DOCKER_USER} --password ${DOCKER_PASS}
       - run :
           name: push docker
-          command: docker push ${DOCKER_USER}/${PROJECT_NAME}:latest
+          command: |
+              docker tag myapi ${DOCKER_USER}/${PROJECT_NAME}:latest
+              docker push ${DOCKER_USER}/${PROJECT_NAME}:latest
 
 workflows:
   version: 2.1
